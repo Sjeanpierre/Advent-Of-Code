@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"regexp"
-	"strconv"
 	"strings"
 )
 
@@ -28,28 +27,21 @@ func main() {
 	for scanner.Scan() {
 		linedata := scanner.Text()
 		if linedata == "" {
-			if validPassport(strings.Join(llines," "), extendedValidation) {
-				counter +=1
-				//fmt.Println(strings.Join(llines," "))
+			if validPassport(strings.Join(llines, " "), extendedValidation) {
+				counter += 1
 			}
 			llines = []string{}
 			continue
 		}
-		llines = append(llines,linedata)
+		llines = append(llines, linedata)
 	}
 	fmt.Println(counter)
 
 }
 
-func validPassport(passportData string, extendedValidation bool)  bool {
+func validPassport(passportData string, extendedValidation bool) bool {
 	if extendedValidation {
-		return 7 == (strings.Count(requiredFieldsValidated.ReplaceAllString(passportData,"+"),"+"))
+		return 7 == (strings.Count(requiredFieldsValidated.ReplaceAllString(passportData, "+"), "+"))
 	}
-	
-	return 7 == (strings.Count(requiredFields.ReplaceAllString(passportData,"+"),"+"))
-}
-
-func parseInt(s string) int {
-	i, _ := strconv.ParseInt(s, 10, 32)
-	return int(i)
+	return 7 == (strings.Count(requiredFields.ReplaceAllString(passportData, "+"), "+"))
 }
