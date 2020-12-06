@@ -1,2 +1,2 @@
 # AOC2020
- Advent of code 
+ Repository used for tracking Advent of code challenges.
