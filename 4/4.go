@@ -43,59 +43,9 @@ func main() {
 
 func validPassport(passportData string, extendedValidation bool)  bool {
 	if extendedValidation {
-		temp := requiredFieldsValidated.ReplaceAllString(passportData,"+")
-		if 7 == (strings.Count(temp,"+")) {
-			parts := strings.Split(passportData," ")
-			for _, pair := range parts {
-				splitParts := strings.Split(pair,":")
-				key := splitParts[0]
-				value := splitParts[1]
-				if key == "eyr" {
-					i := parseInt(value)
-					if i < 2020 || i > 2030 {
-						log.Println("eyr issue with",passportData)
-					}
-				}
-
-				if key == "byr" {
-					i := parseInt(value)
-					if i < 1920 || i > 2002 {
-						log.Println("byr issue with",passportData)
-					}
-				}
-
-				if key == "iyr" {
-					i := parseInt(value)
-					if i < 2010 || i > 2020 {
-						log.Println("iyr issue with",passportData)
-					}
-				}
-
-				if key == "hgt" {
-					if strings.Contains(value,"in") {
-						h := strings.Replace(value,"in","",-1)
-						i := parseInt(h)
-						if i < 59 || i > 76 {
-							log.Println("hgt in issue with",passportData)
-						}
-					}
-				}
-
-				if key == "hgt" {
-					if strings.Contains(value,"cm") {
-						h := strings.Replace(value,"cm","",-1)
-						i := parseInt(h)
-						if i < 150 || i > 193 {
-							log.Println("hgt cm issue with",passportData)
-						}
-					}
-				}
-			}
-			return true
-		}
-		return false
+		return 7 == (strings.Count(requiredFieldsValidated.ReplaceAllString(passportData,"+"),"+"))
 	}
-
+	
 	return 7 == (strings.Count(requiredFields.ReplaceAllString(passportData,"+"),"+"))
 }
 
