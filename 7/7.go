@@ -50,6 +50,7 @@ func part1(lines []string) {
 		}
 
 	}
+	//dedup?
 	for _, v := range CCC {
 		canHold[v] = true
 	}
@@ -76,32 +77,33 @@ func part2(lines []string) {
 	var mapping = make(map[int]map[string]int)
 	mapping[0] = ruleSet["shiny gold bag"]
 
-	for x := 0; x < 40; x++ {
-		var vv []map[string]int
-		for key, value := range mapping[x] {
-			vv = append(vv, calcu(ruleSet, key, value))
-		}
+	calculateBagTree(mapping, 0, ruleSet)
 
-		fff := map[string]int{}
-		for _, mapss := range vv {
-			for key, countsss := range mapss {
-				fff[key] = fff[key] + countsss
-			}
-		}
-		mapping[x+1] = fff
-	}
 	var total int
-	for _, bagsss := range mapping {
-		for _, count := range bagsss {
-			//fmt.Println(name, count)
+	for _, b := range mapping {
+		for _, count := range b {
 			total += count
-
 		}
 	}
 	fmt.Println(total)
 }
 
-func calcu(ruleSet map[string]map[string]int, key string, value int) map[string]int {
+func calculateBagTree(mapping map[int]map[string]int, level int, ruleSet map[string]map[string]int) {
+	holder := map[string]int{}
+	for key, value := range mapping[level] {
+		for k1, count := range getBagsAtLevel(ruleSet, key, value) {
+			holder[k1] = holder[k1] + count
+		}
+	}
+	if len(holder) == 0 {
+		return
+	}
+	nextLevel := level + 1
+	mapping[nextLevel] = holder
+	calculateBagTree(mapping, nextLevel, ruleSet)
+}
+
+func getBagsAtLevel(ruleSet map[string]map[string]int, key string, value int) map[string]int {
 	var tmp = map[string]int{}
 	subLevel := ruleSet[key]
 	for k2, v2 := range subLevel {
@@ -111,7 +113,6 @@ func calcu(ruleSet map[string]map[string]int, key string, value int) map[string]
 		for y := value; y > 0; y-- {
 			tmp[k2] += v2
 		}
-
 	}
 	return tmp
 }
