@@ -20,8 +20,8 @@ func main() {
 		lineData := scanner.Text()
 		if lineData == "" {
 			//We've reached the end of our group, do calculations with data
-			//count += calculateAnyYesAnswers(lines)
-			count += calculateAllYesAnswers(lines)
+			count += calculateAnyYesAnswers(lines)
+			//count += calculateAllYesAnswers(lines)
 			lines = []string{}
 			continue
 		}
@@ -45,13 +45,13 @@ func calculateAllYesAnswers(lines []string) int {
 	tracker := make(map[string]int)
 	for _, line := range lines {
 		for _, char := range line {
-			tracker[string(char)] = tracker[string(char)]+1
+			tracker[string(char)]++
 		}
 	}
 
 	for _, count := range tracker {
 		if count == len(lines) {
-			countAllYes += 1
+			countAllYes++
 		}
 	}
 

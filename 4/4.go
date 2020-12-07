@@ -28,7 +28,7 @@ func main() {
 		linedata := scanner.Text()
 		if linedata == "" {
 			if validPassport(strings.Join(llines, " "), extendedValidation) {
-				counter += 1
+				counter++
 			}
 			llines = []string{}
 			continue
