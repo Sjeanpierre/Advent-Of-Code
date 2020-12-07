@@ -73,31 +73,27 @@ func part2(lines []string) {
 		}
 		ruleSet[bagDescription] = bagCounts
 	}
-	fmt.Println("")
 	var mapping = make(map[int]map[string]int)
 	mapping[0] = ruleSet["shiny gold bag"]
 
 	for x := 0; x < 40; x++ {
 		var vv []map[string]int
 		for key, value := range mapping[x] {
-
-			fmt.Println(value, key)
-			vv = append(vv,calcu(ruleSet,key,value))
-
+			vv = append(vv, calcu(ruleSet, key, value))
 		}
+
 		fff := map[string]int{}
 		for _, mapss := range vv {
 			for key, countsss := range mapss {
-				fff[key] = fff[key]+countsss
+				fff[key] = fff[key] + countsss
 			}
-
 		}
 		mapping[x+1] = fff
 	}
 	var total int
 	for _, bagsss := range mapping {
-		for name, count := range bagsss {
-			fmt.Println(name, count)
+		for _, count := range bagsss {
+			//fmt.Println(name, count)
 			total += count
 
 		}
@@ -123,4 +119,3 @@ func calcu(ruleSet map[string]map[string]int, key string, value int) map[string]
 func listCanHold(s map[string][]string, description string) {
 	CCC = append(CCC, s[description]...)
 }
-
