@@ -1,24 +1,14 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
+
+	"github.com/sjeanpierre/AOC2020/helpers"
 )
 
 func main() {
-	var lines []string
-
-	file, err := os.Open("./input.txt")
-	if err != nil {
-		log.Fatalln("Could not open input file", err)
-	}
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	//part1(lines)
+	lines := helpers.LoadFileLines("./input.txt")
+	part1(lines)
 	part2(lines, 1, 1)
 	part2(lines, 3, 1)
 	part2(lines, 5, 1)

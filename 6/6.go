@@ -1,31 +1,26 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
+
+	"github.com/sjeanpierre/AOC2020/helpers"
 )
 
 func main() {
-	var lines []string
 	var count int
 
-	file, err := os.Open("./input.txt")
-	if err != nil {
-		log.Fatalln("Could not open input file", err)
-	}
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lineData := scanner.Text()
-		if lineData == "" {
-			//We've reached the end of our group, do calculations with data
-			count += calculateAnyYesAnswers(lines)
+	lines := helpers.LoadFileLines("./input.txt")
+
+	var localLines []string
+	for _, line := range lines {
+		if line == "" {
+			count += calculateAnyYesAnswers(localLines)
 			//count += calculateAllYesAnswers(lines)
-			lines = []string{}
+			localLines = []string{}
 			continue
 		}
-		lines = append(lines, scanner.Text())
+		localLines = append(localLines,line)
+
 	}
 	fmt.Println(count)
 }

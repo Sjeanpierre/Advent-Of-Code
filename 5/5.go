@@ -1,29 +1,19 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"log"
 	"math"
-	"os"
 	"sort"
+
+	"github.com/sjeanpierre/AOC2020/helpers"
 )
 
 var maxRow = 127
 var maxSeat = 8
 
 func main() {
-	var lines []string
 
-	file, err := os.Open("./input.txt")
-	if err != nil {
-		log.Fatalln("Could not open input file", err)
-	}
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	//fmt.Println(len(lines))
+	lines := helpers.LoadFileLines("./input.txt")
 	s, r := part1(lines)
 	a := part2()
 	fmt.Println(s, a, r)

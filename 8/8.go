@@ -1,25 +1,16 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"log"
-	"os"
-	"strconv"
 	"strings"
+
+	"github.com/sjeanpierre/AOC2020/helpers"
 )
 
 func main() {
-	var lines []string
 
-	file, err := os.Open("./input.txt")
-	if err != nil {
-		log.Fatalln("Could not open input file", err)
-	}
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
+	lines := helpers.LoadFileLines("./input.txt")
 
 	nops, jumps := process(lines,-1,-1)
 
@@ -47,7 +38,7 @@ func process(lines []string,nopSkip, jumpSkip int) (a, b []int){
 		}
 		seen[x]=true
 		parts := strings.Split(lines[x]," ")
-		instruction, dist := parts[0], stringToInt(parts[1])
+		instruction, dist := parts[0], helpers.StringToInt(parts[1])
 		switch instruction {
 		case "nop":
 			if x == nopSkip {
@@ -77,7 +68,3 @@ func process(lines []string,nopSkip, jumpSkip int) (a, b []int){
 	return nops,jumps
 }
 
-func stringToInt(s string) int {
-	i,_ := strconv.Atoi(s)
-	return i
-}

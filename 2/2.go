@@ -1,27 +1,18 @@
 package main
 
 import (
-	"bufio"
 	"log"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/sjeanpierre/AOC2020/helpers"
 )
 
 var InputLinePattern = regexp.MustCompile(`^(\d+)-(\d+)\s(\w):\s(\w+)`)
 
 func main() {
-	var lines []string
-
-	file, err := os.Open("./input.txt")
-	if err != nil {
-		log.Fatalln("Could not open input file", err)
-	}
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
+	lines := helpers.LoadFileLines("./input.txt")
 	part2(lines)
 }
 
@@ -41,13 +32,12 @@ func part1(lines []string) {
 		max := parseInt(matches[0][2])
 		xx := matches[0][3]
 		password := matches[0][4]
-		occ := strings.Count(password,xx)
+		occ := strings.Count(password, xx)
 		if occ >= min && occ <= max {
 			counter += 1
 		}
 	}
 	log.Println(counter)
-
 }
 
 func part2(lines []string) {
@@ -68,8 +58,6 @@ func part2(lines []string) {
 				counter += 1
 			}
 		}
-
 	}
 	log.Println(counter)
-
 }

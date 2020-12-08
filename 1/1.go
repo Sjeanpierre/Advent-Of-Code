@@ -1,26 +1,20 @@
 package main
 
 import (
-	"bufio"
 	"log"
 	"os"
-	"strconv"
+
+	"github.com/sjeanpierre/AOC2020/helpers"
 )
 
 func main() {
-	var lines []int
-
-	file, err := os.Open("./1-1_input.txt")
-	if err != nil {
-		log.Fatalln("Could not open input file", err)
+	lines := helpers.LoadFileLines("./input.txt")
+	var numbers []int
+	for _, line := range lines {
+		numbers = append(numbers,helpers.StringToInt(line))
 	}
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		i, _ := strconv.ParseInt(scanner.Text(), 10, 32)
-		lines = append(lines, int(i))
-	}
-	//part1(lines)
-	part2(lines)
+	//part1(numbers)
+	part2(numbers)
 
 }
 
