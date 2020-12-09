@@ -11,7 +11,7 @@ import (
 func LoadFileLines(filepath string) []string {
 	var lines []string
 
-	file, err := os.Open("./input.txt")
+	file, err := os.Open(filepath)
 	if err != nil {
 		log.Fatalln("Could not open input file", err)
 	}
@@ -23,6 +23,9 @@ func LoadFileLines(filepath string) []string {
 }
 
 func StringToInt(s string) int {
-	i,_ := strconv.Atoi(s)
+	i,err := strconv.Atoi(s)
+	if err != nil {
+		log.Fatalln("welp you should have known better",err,s)
+	}
 	return i
 }
