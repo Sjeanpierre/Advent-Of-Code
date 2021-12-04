@@ -10,60 +10,8 @@ import (
 
 func main() {
 	lines := helpers.LoadFileLines("./input.txt")
-	//process1(lines)
+	process1(lines)
 	process2(lines)
-}
-
-func process2(lines []string) {
-	filteredDelta := lines
-	filteredEpsilon := lines
-	z := 0
-	for {
-		z++
-		fmt.Println(z)
-		for i := 0; i < len(lines[0]); i++ {
-			freqs := calculateFreq(filteredDelta)
-			fmt.Println(freqs[i])
-			switch freqs[i] {
-			case 1:
-				filteredDelta = filter(filteredDelta, i, 1)
-			case 0:
-				filteredDelta = filter(filteredDelta, i, 0)
-			default:
-				filteredDelta = filter(filteredDelta, i, 1)
-			}
-		}
-		if len(filteredDelta) == 1 {
-			break
-		}
-	}
-
-	for {
-		z++
-		fmt.Println(z)
-		for i := 0; i < len(lines[0]); i++ {
-			freqs := calculateFreq(filteredEpsilon)
-			fmt.Println(freqs[i])
-			switch freqs[i] {
-			case 1:
-				filteredEpsilon = filter(filteredEpsilon, i, 0)
-			case 0:
-				filteredEpsilon = filter(filteredEpsilon, i, 1)
-			default:
-				filteredEpsilon = filter(filteredEpsilon, i, 0)
-			}
-			if len(filteredEpsilon) == 1 {
-				break
-			}
-		}
-		if len(filteredEpsilon) == 1 {
-			break
-		}
-	}
-
-	deltaN, _ := strconv.ParseInt(filteredDelta[0], 2, 32)
-	epsilonN, _ := strconv.ParseInt(filteredEpsilon[0], 2, 32)
-	fmt.Println("\n", deltaN*epsilonN)
 }
 
 func calculateFreq(lines []string) map[int]int {
@@ -127,4 +75,56 @@ func process1(lines []string) {
 	epsilonN, _ := strconv.ParseInt(strings.Join(epsilon, ""), 2, 32)
 	fmt.Println("\n", deltaN*epsilonN)
 
+}
+
+func process2(lines []string) {
+	filteredDelta := lines
+	filteredEpsilon := lines
+	z := 0
+	for {
+		z++
+		fmt.Println(z)
+		for i := 0; i < len(lines[0]); i++ {
+			freqs := calculateFreq(filteredDelta)
+			fmt.Println(freqs[i])
+			switch freqs[i] {
+			case 1:
+				filteredDelta = filter(filteredDelta, i, 1)
+			case 0:
+				filteredDelta = filter(filteredDelta, i, 0)
+			default:
+				filteredDelta = filter(filteredDelta, i, 1)
+			}
+		}
+		if len(filteredDelta) == 1 {
+			break
+		}
+	}
+
+	for {
+		z++
+		fmt.Println(z)
+		for i := 0; i < len(lines[0]); i++ {
+			freqs := calculateFreq(filteredEpsilon)
+			fmt.Println(freqs[i])
+			switch freqs[i] {
+			case 1:
+				filteredEpsilon = filter(filteredEpsilon, i, 0)
+			case 0:
+				filteredEpsilon = filter(filteredEpsilon, i, 1)
+			default:
+				filteredEpsilon = filter(filteredEpsilon, i, 0)
+			}
+			if len(filteredEpsilon) == 1 {
+				break
+			}
+		}
+		if len(filteredEpsilon) == 1 {
+			break
+		}
+	}
+
+	deltaN, _ := strconv.ParseInt(filteredDelta[0], 2, 32)
+	epsilonN, _ := strconv.ParseInt(filteredEpsilon[0], 2, 32)
+	fmt.Println("\n", deltaN*epsilonN)
 }
