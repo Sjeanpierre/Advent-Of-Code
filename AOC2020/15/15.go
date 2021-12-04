@@ -24,7 +24,7 @@ func process(lines []int) {
 		findPos = 30000000
 	}
 
-	var tracker = make(map[int]int)
+	var tracker = make(map[int]int,findPos+1)
 	for i, v := range lines {
 		tracker[v] = i + 1
 	}
