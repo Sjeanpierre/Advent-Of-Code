@@ -59,10 +59,7 @@ func process1(lines []string) {
 	var delta []string
 	var epsilon []string
 	freqs := calculateFreq(lines)
-	fmt.Println(freqs)
 	for i := 0; i < len(freqs); i++ {
-		fmt.Print(freqs[i])
-
 		if freqs[i] == 1 {
 			delta = append(delta, "1")
 			epsilon = append(epsilon, "0")
@@ -80,13 +77,9 @@ func process1(lines []string) {
 func process2(lines []string) {
 	filteredDelta := lines
 	filteredEpsilon := lines
-	z := 0
 	for {
-		z++
-		fmt.Println(z)
 		for i := 0; i < len(lines[0]); i++ {
 			freqs := calculateFreq(filteredDelta)
-			fmt.Println(freqs[i])
 			switch freqs[i] {
 			case 1:
 				filteredDelta = filter(filteredDelta, i, 1)
@@ -102,11 +95,8 @@ func process2(lines []string) {
 	}
 
 	for {
-		z++
-		fmt.Println(z)
 		for i := 0; i < len(lines[0]); i++ {
 			freqs := calculateFreq(filteredEpsilon)
-			fmt.Println(freqs[i])
 			switch freqs[i] {
 			case 1:
 				filteredEpsilon = filter(filteredEpsilon, i, 0)
