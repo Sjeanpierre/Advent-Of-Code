@@ -8,7 +8,6 @@ import (
 	"github.com/sjeanpierre/AOC2020/helpers"
 )
 
-var Counter []int
 var B = true
 
 func main() {
