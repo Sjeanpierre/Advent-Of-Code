@@ -8,6 +8,7 @@ import (
 
 func main() {
 	lines := helpers.LoadFileLines("./sample_input.txt")
+	//lines := helpers.LoadFileLines("./input.txt")
 	process(lines)
 }
 
